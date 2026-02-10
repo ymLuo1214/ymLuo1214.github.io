@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yiming Luo - Academic Homepage</title>
+    <style>
+        /* --- 全局设置 --- */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f5f7fa; 
+            color: #2c3e50;
+            line-height: 1.6;
+            margin: 0;
+            padding: 60px 20px;
+        }
+
+        .container {
+            max-width: 900px; /* 稍微调宽一点，给图片留出空间 */
+            margin: 0 auto;
+        }
+
+        a {
+            color: #0366d6;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        a:hover {
+            color: #004080;
+            text-decoration: underline;
+        }
+
+        /* --- 头部区域 --- */
+        .header-section {
+            display: flex;
+            flex-direction: row-reverse; 
+            align-items: center; 
+            justify-content: center;
+            gap: 40px; 
+            margin-bottom: 60px;
+        }
+
+        .profile-photo {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            flex-shrink: 0;
+        }
+
+        .bio-text {
+            text-align: left;
+            font-size: 1.05rem;
+            max-width: 600px; /* 限制文字宽度，防止在大屏上太长 */
+        }
+
+        .bio-text h1 {
+            font-size: 1.8rem;
+            margin: 0 0 15px 0;
+            font-weight: 700;
+            color: #1a202c;
+            letter-spacing: -0.02em;
+            text-align: center; 
+        }
+
+        .bio-text p {
+            margin: 0 0 15px 0;
+            color: #4a5568;
+        }
+        
+        .bio-text strong {
+            color: #2d3748;
+        }
+
+        .contact-links {
+            margin-top: 20px;
+            font-size: 0.95rem;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap; 
+        }
+        .contact-links a {
+            color: #586069;
+            font-weight: 500;
+        }
+        .contact-links a:hover {
+            color: #0366d6;
+        }
+
+        /* --- 分割线与子标题 --- */
+        h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+            margin-top: 60px;
+            margin-bottom: 30px;
+            color: #2d3748;
+        }
+
+        /* --- 列表内容区 (Publications) --- */
+        .pub-item {
+            display: flex; /* 开启 Flex 布局：左图右文 */
+            gap: 25px;     /* 图片和文字之间的间距 */
+            margin-bottom: 40px; /* 每个发表项目之间的间距 */
+            align-items: flex-start;
+        }
+        
+        .pub-teaser img {
+            /* 1. 设置固定的宽和高 */
+            width: 200px;
+            height: 200px; /* 你可以调整这个数值，比如 160px 或 140px */
+
+            /* 2. 移除 object-fit: cover
+               不写 object-fit 默认就是 "fill"，即拉伸图片填满上述宽高。
+               这样图片内容会全部显示，但如果原图比例不是 220:150，图片会被压扁或拉长。 */
+            
+            display: block; 
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+            background-color: #fff; /* 防止透明图片背景看起来奇怪 */
+        }
+        
+        .pub-teaser img:hover {
+            transform: scale(1.02);
+        }
+
+        /* --- 手机端保持原样（通常手机端不强制固定高度，否则会很丑）--- */
+        @media (max-width: 700px) {
+            .pub-teaser img {
+                width: 100%; 
+                max-width: 400px;
+                height: auto; /* 手机上恢复自动高度，避免过度变形 */
+                margin: 0 auto;
+            }
+        }
+
+        /* 右侧详细信息容器 */
+        .pub-details {
+            flex: 1; /* 占据剩余空间 */
+        }
+
+        .pub-title {
+            font-weight: 700;
+            font-size: 1.15rem;
+            margin-bottom: 6px;
+            line-height: 1.3;
+            display: block;
+        }
+        
+        .pub-title a {
+            color: #2d3748;
+            text-decoration: none;
+        }
+        .pub-title a:hover {
+            color: #0366d6;
+            text-decoration: none; /* 标题Hover时不加下划线，改颜色即可 */
+        }
+
+        .pub-authors {
+            color: #4a5568;
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+            line-height: 1.5;
+        }
+
+        .pub-venue {
+            font-style: italic;
+            color: #718096;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+        
+        /* 强调高亮标签，例如 Best Paper */
+        .highlight-tag {
+            color: #c53030;
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        /* 链接栏样式 */
+        .pub-links {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        .pub-links a {
+            font-weight: 600;
+            margin-right: 5px;
+            color: #0366d6;
+        }
+        .pub-links span {
+            color: #cbd5e0; /* 分隔符颜色 */
+            margin-right: 5px;
+        }
+
+        /* 一句话简介样式 */
+        .pub-summary {
+            font-size: 0.9rem;
+            color: #555;
+            background-color: #f8f9fa;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border-left: 3px solid #cbd5e0;
+        }
+        
+        /* --- 【新增】Misc 区域照片样式 --- */
+        .misc-photo-container {
+            margin-top: 25px;
+            text-align: center; /* 让图片居中显示 */
+        }
+
+        .misc-photo {
+            max-width: 100%;      /* 确保在手机上不会超出屏幕 */
+            width: 320px;         /* 设置一个合适的默认宽度，你可以根据需要调整 */
+            height: auto;         /* 保持图片比例 */
+            border-radius: 12px;  /* 圆角，看起来更柔和 */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* 添加一点阴影增加层次感 */
+            border: 3px solid #fff; /* 加一个白边，类似拍立得的效果 */
+        }
+        /* -------------------------------- */
+
+
+        /* --- 响应式设计 --- */
+        @media (max-width: 700px) {
+            .header-section {
+                flex-direction: column; 
+                text-align: center;
+            }
+            .bio-text {
+                text-align: center;
+            }
+            
+            /* 手机端 Publication 布局调整 */
+            .pub-item {
+                flex-direction: column; /* 变为垂直排列 */
+                align-items: center;
+            }
+            .pub-teaser {
+                flex: 0 0 auto;
+                max-width: 100%; /* 图片宽度铺满 */
+                width: 100%;
+                margin-bottom: 15px;
+            }
+            .pub-teaser img {
+                max-width: 300px; /* 限制手机上图片最大宽度，防止过大 */
+                display: block;
+                margin: 0 auto;
+            }
+            .pub-details {
+                text-align: left; /* 手机上文字保持左对齐 */
+                width: 100%;
+            }
+        }
+
+        /* 底部 */
+        footer {
+            margin-top: 80px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #a0aec0;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <header class="header-section">
+            <img src="./profile.jpeg" alt="Profile Photo" class="profile-photo">
+            
+            <div class="bio-text">
+                <h1>Yiming Luo (罗一鸣)</h1> 
+                
+                <p>
+                    I am a Ph.D. student at the University of Hong Kong, advised by Prof. Fu Zhang and working closely with Prof. Boyu Zhou. Currently, I am also a research intern at RobbyAnt, mentored by Prof. Yinghao Xu. I received my B.Eng. in Automation from Xi'an Jiaotong University.
+                </p>
+                
+                <p>
+                    My research targets real-world robotic applications. I'm now working on dexterous bimanual manipulation, from data collection devices to learning frameworks—to enable efficient robot learning from human demonstrations.
+                </p>
+
+                <p>
+                    If you'd like to discuss research opportunity, collaboration, or anything related, feel free to reach out via email: <a href="mailto:yyluouomm@connect.hku.hk">yyluouomm@connect.hku.hk</a>.
+                </p>
+
+                <div class="contact-links">
+                    <a href="mailto:yyluouomm@connect.hku.hk">Email</a> /
+                    <a href="https://scholar.google.com/citations?user=H1pw5NEAAAAJ&hl=en">Google Scholar</a> /
+                    <a href="https://github.com/ymLuo1214">GitHub</a> /
+                    <a href="https://www.linkedin.com/in/yiming-luo-3a29b9283/">Linkedin</a>
+                </div>
+            </div>
+        </header>
+
+        <section>
+            <h2>Publications</h2>
+            
+            <div class="pub-item">
+                <div class="pub-teaser">
+                    <img src="./sources/lingbot-va.png" alt="Teaser Image">
+                </div>
+                <div class="pub-details">
+                    <span class="pub-title">
+                        <a href="https://arxiv.org/pdf/2601.21998">Causal World Modeling for Robot Control</a>
+                    </span>
+                    <div class="pub-authors">
+                        Lin Li*, Qihang Zhang*, <strong>Yiming Luo*</strong>, Shuai Yang, Ruilin Wang, Fei Han, Mingrui Yu, Zelin Gao, Nan Xue, Xing Zhu, Yujun Shen, Yinghao Xu†
+                    </div>
+                    <div class="pub-venue">
+                        Technical Report
+                    </div>
+                    <div class="pub-links">
+                        <a href="https://arxiv.org/pdf/2601.21998">Paper</a> <span>/</span>
+                        <a href="https://github.com/robbyant/lingbot-va">Code</a> <span>/</span>
+                        <a href="https://technology.robbyant.com/lingbot-va">Project Page</a>
+                    </div>
+                    <div class="pub-summary">
+                        We develop an autoregressive diffusion framework that architecturally unifies visual dynamics prediction and action inference within a single interleaved sequence.
+                    </div>
+                </div>
+            </div>
+
+            <div class="pub-item">
+                <div class="pub-teaser">
+                    <img src="./sources/FERMI.jpg" alt="Teaser Image">
+                </div>
+                <div class="pub-details">
+                    <span class="pub-title">
+                        <a href="https://arxiv.org/pdf/2504.14862">FERMI: Flexible Radio Mapping with a Hybrid Propagation Model and Scalable Autonomous Data Collection</a>
+                    </span>
+                    <div class="pub-authors">
+                        <strong>Yiming  Luo</strong>, Yunfei Wang, Hongming Chen, Chengkai Wu, Ximin Lyu, Jinni Zhou, Jun Ma, Fu Zhang, Boyu Zhou†
+                    </div>
+                    <div class="pub-venue">
+                        Robotics: Science and Systems, 2025 <span class="highlight-tag"></span>
+                    </div>
+                    <div class="pub-links">
+                        <a href="https://arxiv.org/pdf/2504.14862">Paper</a> <span>/</span>
+                        <a href="https://github.com/ymLuo1214/Flexible-Radio-Mapping">Code</a>
+                    </div>
+                    <div class="pub-summary">
+                        A flexible radio mapping framework combines learned multi-path model with physics-based modeling as well as a scalable planning method for autonomous data collection.
+                    </div>
+                </div>
+            </div>
+
+            <div class="pub-item">
+                <div class="pub-teaser">
+                    <img src="./sources/Star-searcher.jpg" alt="Teaser Image">
+                </div>
+                <div class="pub-details">
+                    <span class="pub-title">
+                        <a href="https://arxiv.org/pdf/2402.16348">Star-searcher: A complete and efficient aerial system for autonomous target search in complex unknown environments</a>
+                    </span>
+                    <div class="pub-authors">
+                        <strong>Yiming  Luo</strong>, Zixuan Zhuang, Neng Pan, Chen Feng, Shaojie Shen, Fei Gao, Hui Cheng, Boyu Zhou†
+                    </div>
+                    <div class="pub-venue">
+                        IEEE Robotics and Automation Letters, 2024 <span class="highlight-tag"></span>
+                    </div>
+                    <div class="pub-links">
+                        <a href="https://arxiv.org/pdf/2402.16348">Paper</a> <span>/</span>
+                        <a href="https://github.com/Robotics-STAR-Lab/STAR-Searcher">Code</a> <span>/</span>
+                        <a href="https://www.bilibili.com/video/BV1Wy4y1c7vj/?spm_id_from=333.337.search-card.all.click&vd_source=aae82f386a0df1c60f9e0c6925a430e4">Video</a>
+                    </div>
+                    <div class="pub-summary">
+                        An aerial system featuring specialized sensor suites, mapping, and planning modules to optimize target searching in unknown environments. 
+                    </div>
+                </div>
+            </div>
+
+            <div class="pub-item">
+                <div class="pub-teaser">
+                    <img src="./sources/h3mapping.jpg" alt="Teaser Image">
+                </div>
+                <div class="pub-details">
+                    <span class="pub-title">
+                        <a href="https://arxiv.org/pdf/2403.10821">H3-Mapping: Quasi-Heterogeneous Feature Grids for Real-Time Dense Mapping Using Hierarchical Hybrid Representation</a>
+                    </span>
+                    <div class="pub-authors">
+                       Chenxing Jiang, <strong>Yiming Luo</strong>, Boyu Zhou†, Shaojie Shen
+                    </div>
+                    <div class="pub-venue">
+                        IEEE Robotics and Automation Letters, 2024 <span class="highlight-tag"></span>
+                    </div>
+                    <div class="pub-links">
+                        <a href="https://arxiv.org/pdf/2403.10821">Paper</a> <span>/</span>
+                        <a href="https://github.com/Robotics-STAR-Lab/H3-Mapping">Code</a> <span>/</span>
+                        <a href="https://www.bilibili.com/video/BV1By421v7S8/?vd_source=aae82f386a0df1c60f9e0c6925a430e4">Video</a>
+                    </div>
+                    <div class="pub-summary">
+                        A NeRF-based dense mapping method that enables faster and higher-quality reconstruction using quasi-heterogeneous feature grids for varying levels of texture complexity.
+                    </div>
+                </div>
+            </div>
+
+            <div class="pub-item">
+                <div class="pub-teaser">
+                    <img src="./sources/SOAR.jpg" alt="Teaser Image">
+                </div>
+                <div class="pub-details">
+                    <span class="pub-title">
+                        <a href="https://arxiv.org/pdf/2409.02738">SOAR: Simultaneous Exploration and Photographing with Heterogeneous UAVs for Fast Autonomous Reconstruction</a>
+                    </span>
+                    <div class="pub-authors">
+                       Mingjie Zhang*, Chen Feng*, Zengzhi Li, Guiyong Zheng, <strong>Yiming Luo</strong>, Zhu Wang, Jinni Zhou, Shaojie Shen, Boyu Zhou†
+                    </div>
+                    <div class="pub-venue">
+                        IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), 2024 <span class="highlight-tag"></span>
+                    </div>
+                    <div class="pub-links">
+                        <a href="https://arxiv.org/pdf/2409.02738">Paper</a> <span>/</span>
+                        <a href="https://github.com/Robotics-STAR-Lab/SOAR">Code</a> <span>/</span>
+                        <a href="https://www.bilibili.com/video/BV1G1421Q79m/">Video</a>
+                    </div>
+                    <div class="pub-summary">
+                        A LiDAR-Visual heterogeneous multi-UAV system specifically designed for fast autonomous reconstruction of complex environments.
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section>
+            <h2>Service</h2>
+            <p><strong>Conference Reviewer:</strong> RSS, ICRA, IROS</p>
+            <p><strong>Journal Reviewer:</strong> RA-L</p>
+        </section>
+
+        <section>
+            <h2>Misc</h2>
+            <p>I’ve got a cute but silly Pomeranian. I love J-Pop and Cantonese pop songs—highly recommend them if you’re feeling the research stress(:</p>
+            
+            <div class="misc-photo-container">
+                <img src="./sources/Maimai.jpeg" alt="My Pomeranian dog" class="misc-photo">
+                </div>
+            </section>
+
+        <footer>
+            &copy; 2026 Yiming Luo.
+        </footer>
+
+    </div>
+
+</body>
+</html>
